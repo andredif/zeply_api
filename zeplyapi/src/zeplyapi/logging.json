@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "default": {
+            "()": "uvicorn.logging.DefaultFormatter",
+            "fmt": "[%(levelname)s] %(asctime)s\t%(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S"
+        }
+    },
+    "handlers": {
+        "console": {
+            "formatter": "default",
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout"
+        },
+        "file": {
+            "formatter": "default",
+            "class": "logging.FileHandler",
+            "filename":"zeplyapi/uvicorn_app.log"
+        }
+    },
+    "loggers": {
+        "uvicorn_app": {
+            "error": {
+                "propagate": "true"
+            }
+        }
+    },
+    "root": {
+        "level": "INFO",
+        "handlers": [
+            "console",
+            "file"
+        ],
+        "propagate": "no"
+    }
+}

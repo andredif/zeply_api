@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  app:
+    image: zeplyapi:latest
+    build:
+      dockerfile: ./Dockerfile
+      context: ./zeplyapi
+    volumes:
+      - ./zeplyapi/src:/src
+      - ./zeplyapi/docker-entrypoint.sh:/docker-entrypoint.sh
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+    env_file:
+      - ./envs/zeplyapi/.env
+    command: ["-start-service"]
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+      - "5779:5678"
+    networks:
+      - isolated_nw
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - isolated_nw
+    env_file:
+      - ./envs/postgres/.env
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+
+networks:
+    isolated_nw:
+
+volumes:
+  postgresql-data:

@@ -1,0 +1,13 @@
+.vscode
+venv
+.eggs
+
+*.pyc
+__pycache__
+*.egg-info
+.tox
+.coverage*
+resources/postgresql-data/
+.terraform
+*.log
+
