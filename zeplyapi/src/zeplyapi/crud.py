@@ -17,10 +17,9 @@ def create_address(db: Session, address_data):
     return db_address
 
 
-def get_address(db: Session, address_id):
-    db_address = db.query(Address).get(address_id)
+def get_address(db: Session, coin: Coin, id:int):
+    db_address = db.query(Address).filter(Address.coin==coin, Address.id==id).first()
     db.close()
-    
     return db_address   
 
 

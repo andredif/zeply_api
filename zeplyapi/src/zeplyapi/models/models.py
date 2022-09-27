@@ -13,7 +13,8 @@ from ..schemas import Coin
 class Address(Base):
     __tablename__ = 'address'
 
-    id = Column(Integer, primary_key=True)
+    db_key = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Integer)
     coin = Column(Enum(Coin))
     address = Column(String)
 

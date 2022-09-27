@@ -20,21 +20,6 @@ class Coin(enum.Enum):
     ETH = "ETH"
 
 
-class Mnemonic(BaseModel):
-    word1 : str = Field(example="artic")
-    word2 : str = Field(example="artic")
-    word3 : str = Field(example="artic")
-    word4 : str = Field(example="artic")
-    word5 : str = Field(example="artic")
-    word6 : str = Field(example="artic")
-    word7 : str = Field(example="artic")
-    word8 : str = Field(example="artic")
-    word9 : str = Field(example="artic")
-    word10 : str = Field(example="artic")
-    word11 : str = Field(example="artic")
-    word12 : str = Field(example="artic")
-
-
 class AddressRequest(BaseModel):
     coin: Coin
 
@@ -43,6 +28,7 @@ class AddressRequest(BaseModel):
 
 
 class AddressResponse(BaseModel):
+    id: int
     coin: Coin
     address : str = Field(...,
         example="0xf8b4dFbEEeaffF2E317FFE502d439F174CF7B11a", 
@@ -53,5 +39,6 @@ class AddressResponse(BaseModel):
 
 
 class AddressList(BaseModel):
-    addresses : List[str]
+    BTC_addresses : Optional[List[AddressResponse]]
+    ETH_addresses : Optional[List[AddressResponse]]
 
