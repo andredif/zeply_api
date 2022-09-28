@@ -45,7 +45,7 @@ def generate_addresses(
     saved_addresses = get_all_addresses_from_coin(db=db, coin=coin_type)
     wallet.generate_new_address(id=len(saved_addresses)+1)
     addresses = wallet.addresses_list()
-    new_address = addresses[len(saved_addresses)-1]
+    new_address = addresses[-1]
     address_data = AddressResponse(
         id=len(saved_addresses)+1,
         coin=coin_type,
