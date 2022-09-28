@@ -43,11 +43,11 @@ def generate_addresses(
     elif coin_type == Coin.ETH:
         wallet = ETH_hd_wallet
     saved_addresses = get_all_addresses_from_coin(db=db, coin=coin_type)
-    wallet.generate_new_address(id=saved_addresses.length)
+    wallet.generate_new_address(id=len(saved_addresses)+1)
     addresses = wallet.addresses_list()
-    new_address = addresses[saved_addresses.length]
+    new_address = addresses[len(saved_addresses)-1]
     address_data = AddressResponse(
-        id=saved_addresses.length,
+        id=len(saved_addresses)+1,
         coin=coin_type,
         address=new_address
     )
@@ -60,7 +60,10 @@ def list_addresses(
 ):
     btc_addresses = get_all_addresses_from_coin(db=db, coin=Coin.BTC)
     eth_addresses = get_all_addresses_from_coin(db=db, coin=Coin.ETH)
-    return {"addresses" : btc_addresses + eth_addresses}
+    return AddressList(
+        BTC_addresses=btc_addresses,
+        ETH_addresses=eth_addresses
+    )
 
 
 @router.get("retrieve-address/{coin_type}/{address_id}", response_model=AddressResponse)
